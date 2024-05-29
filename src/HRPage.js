@@ -42,7 +42,7 @@ const HrLanding = () => {
                         <th>DOB</th>
                         <th>Gender</th>
                         <th>Role</th>
-                        <th>DOB</th>
+                        <th>Address</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -56,7 +56,11 @@ const HrLanding = () => {
                             <td>{user.dob}</td>
                             <td>{user.gender}</td>
                             <td>{user.role}</td>
-                            <td>{user.address}</td>
+
+                            <td>
+                                    {user.address}
+                            </td>
+
                             <td>
                                 <button onClick={() => handleEdit(user.id)}>
                                     <FaEdit />

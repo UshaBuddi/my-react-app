@@ -146,7 +146,7 @@ const EditRegister = () => {
                 </div>
                 <div className="form-group">
                     <label>
-                        Gender:</label>ß
+                        Gender:</label>
                     <select name="gender" value={form.gender} onChange={handleChange} className="custom-select">
                         <option value="">Select</option>
                         <option value="male">Male</option>
