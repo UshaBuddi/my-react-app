@@ -27,7 +27,7 @@ const DeveloperLanding = () => {
         </thead>
         <tbody>
           <tr key={Data.id}>
-            <td>{Data.id}</td>
+            <td>1</td>
             <td>{Data.firstName}</td>
             <td>{Data.lastName}</td>
             <td>{Data.email}</td>

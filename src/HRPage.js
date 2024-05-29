@@ -47,9 +47,9 @@ const HrLanding = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {userData.map(user => (
-                        <tr key={user.id}>
-                            <td>{user.id}</td>
+                    {userData.map((user, index) => (
+                        <tr key={index}>
+                            <td>{index + 1}</td>
                             <td>{user.firstName}</td>
                             <td>{user.lastName}</td>
                             <td>{user.email}</td>
