@@ -1,36 +1,141 @@
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
+.container {
+  width: 30%;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+}
+
+h1, h2 {
+  text-align: center;
+  color: #333;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
 }
 
 button {
-  font-family: inherit;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-/* src/App.css */
-
-.App {
-  text-align: center;
+button:hover {
+  background-color: #45a049;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  margin: 20px 0;
-  font-size: 18px;
+  margin-top: 20px;
+}
+
+table, th, td {
+  border: 1px solid #ccc;
+}
+
+th, td {
+  padding: 10px;
   text-align: left;
 }
 
-table th, table td {
-  padding: 12px;
-  border: 1px solid #ddd;
-}
-
-table th {
+th {
   background-color: #f2f2f2;
 }
-
-table tr:nth-child(even) {
-  background-color: #f9f9f9;
+.landing-page {
+  height: 100vh; /* Full height */
+  width: 100%; /* Full width */
+  background-image: url('/public/background.jpeg'); 
+  background-size: cover; /* Scale the image to cover the entire container */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+  display: flex; /* Optional: for flexbox centering of content */
+  justify-content: center; /* Optional: center content horizontally */
+  align-items: center; /* Optional: center content vertically */
+  text-align: center; /* Optional: center text */
+  /* margin-top: 80px; */
+  text-align: center;
+  padding: 2rem;
+  position: fixed;
 }
+
+
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #b69cdc;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    z-index: 1000;
+  }
+  
+  .navbar h1 {
+    margin: 0;
+  }
+  
+  .navbar .btnsignup {
+    margin-left: 1rem;
+    padding: 0.5rem 1rem;
+    color: white;
+    background-color: #4CAF50;
+    border: none;
+    cursor: pointer;
+  }
+  .navbar .btnsignin {
+    margin-left: 1rem;
+    padding: 0.5rem 1rem;
+    color: white;
+    background-color: #4CAF50;
+    border: none;
+    cursor: pointer;
+    margin-right: 25px;
+  }
+  
+  .navbar .btn:hover {
+    background-color: #777;
+  }
+
+  button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }

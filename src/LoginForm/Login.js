@@ -1,11 +1,10 @@
 
-import React, { useState , useEffect } from 'react';
-import './Login.css';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 
-const Login= ()  => {
-  const [loginData, setLoginData] = useState([]);
+const Login = () => {
+  // const [loginData, setLoginData] = useState([]);
   const [form, setForm] = useState({
     email: '',
     password: '',
@@ -15,13 +14,12 @@ const Login= ()  => {
 
   const [errors, setErrors] = useState({});
   const [error, setError] = useState('');
-  // Load records from localStorage when the component mounts
-  useEffect(() => {
-    const storedRecords = JSON.parse(localStorage.getItem('loginData'));
-    if (storedRecords) {
-      setLoginData(storedRecords);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const storedRecords = JSON.parse(localStorage.getItem('loginData'));
+  //   if (storedRecords) {
+  //     setLoginData(storedRecords);
+  //   }
+  // }, []);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -41,9 +39,7 @@ const Login= ()  => {
     if (validateForm()) {
       const registeredData = JSON.parse(localStorage.getItem('records'));
       const userFound = registeredData.find(user => user.email === form.email);
-      localStorage.setItem('userData',  JSON.stringify(userFound));
-      // var data = localStorage.getItem('userData');
-      // console.log(data, 'data', userFound, 'userFound')
+      localStorage.setItem('userData', JSON.stringify(userFound));
       if (!userFound) {
         setError('User not registered.');
       } else if (userFound.password !== form.password) {
@@ -51,39 +47,41 @@ const Login= ()  => {
       } else {
         setError('');
         alert('Login successful!');
-  
-    if (userFound.role === 'HR') {
-      history('/hr');
-    } else if (userFound.role === 'Manager') {
-      history('/manager');
-    } else if (userFound.role === 'Developer') {
-      history('/developer');
-    }
-    setForm({ email: '',
-    password: '',
-  }); // Reset form data after submission
-        // Redirect to another page or perform other actions as needed
+
+        if (userFound.role === 'HR') {
+          history('/hr');
+        } else if (userFound.role === 'Manager') {
+          history('/manager');
+        } else if (userFound.role === 'Developer') {
+          history('/developer');
+        }
+        setForm({
+          email: '',
+          password: '',
+        });
       }
-      
+
     }
   };
 
   return (
-    <div className="login-form">
+    <div className="container">
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
-        <label>
-          User Name:
+        <div className="form-group">
+          <label>
+            User Name:</label>
           <input type="email" name="email" value={form.email} onChange={handleChange} />
           {errors.email && <span>{errors.email}</span>}
-        </label>
-        <label>
-          Password:
+        </div>
+        <div className="form-group">
+          <label>
+            Password:</label>
           <input type="password" name="password" value={form.password} onChange={handleChange} />
           {errors.password && <span>{errors.password}</span>}
-          
-        </label>
-        
+
+        </div>
+
         <button type="submit">Login</button>
         {error && <p style={{ color: 'red' }}>{error}</p>}
       </form>

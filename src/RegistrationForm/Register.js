@@ -1,8 +1,7 @@
-// src/components/Register.js
-import React, { useState , useEffect } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import './Register.css';
-import Login from '../LoginForm/Login';
-// import { isVisible } from '@testing-library/user-event/dist/utils';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const roles = ['HR', 'Manager', 'Developer'];
 
@@ -19,6 +18,8 @@ const Register = () => {
     role: '',
     address: '',
   });
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setshowConfirmPassword] = useState(false);
   const [error, setError] = useState('');
   const [errors, setErrors] = useState({});
   // Load records from localStorage when the component mounts
@@ -31,6 +32,12 @@ const Register = () => {
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+  };
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+  const toggleConfirmPasswordVisibility = () => {
+    setshowConfirmPassword(!showConfirmPassword);
   };
 
   const validateForm = () => {
@@ -58,102 +65,114 @@ const Register = () => {
     e.preventDefault();
     if (validateForm()) {
       const registeredData = JSON.parse(localStorage.getItem('records'));
-    const userExists = registeredData.some(user => user.email === form.email);
+      const userExists = registeredData.some(user => user.email === form.email);
 
-    if (userExists) {
-      setError('Username already exists.');
-    } else {
-      setError('');
-      
-      const newRecord = { id: records.length + 1, ...form };
-    const updatedRecords = [...records, newRecord];
-    setRecords(updatedRecords);
-    
-    localStorage.setItem('records', JSON.stringify(updatedRecords));
-    setForm({ firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    dob: '',
-    gender: '',
-    role: '',
-    address: '' }); 
-    alert('Registration successful!');
-      // registeredData.push(JSON.stringify(updatedRecords));
-      
-      // Redirect to another page or perform other actions as needed
-    }
-      // Reset form data after submission
+      if (userExists) {
+        setError('Username already exists.');
+      } else {
+        setError('');
+
+        const newRecord = { id: records.length + 1, ...form };
+        const updatedRecords = [...records, newRecord];
+        setRecords(updatedRecords);
+
+        localStorage.setItem('records', JSON.stringify(updatedRecords));
+        setForm({
+          firstName: '',
+          lastName: '',
+          email: '',
+          password: '',
+          confirmPassword: '',
+          dob: '',
+          gender: '',
+          role: '',
+          address: ''
+        });
+        alert('Registration successful!');
+      }
     }
   };
 
   return (
-    <div className="register-form">
-      {/* {console.log(records, 'records')} */}
-      {records.length >= 0 &&
-      <div style={{display:'none'}}>
-        {/* {console.log(records,'loginrecords')} */}
-        
-      <Login records={records} /></div>}
+    <div className="container">
       <h2>Register</h2>
       <form onSubmit={handleSubmit}>
-        <label>
-          First Name:
-          <input type="text" name="firstName" value={form.firstName} onChange={handleChange} />
+        <div className="form-group">
+          <label>
+            First Name:</label>
+          <input className="form-group" type="text" name="firstName" value={form.firstName} onChange={handleChange} />
           {errors.firstName && <span>{errors.firstName}</span>}
-        </label>
-        <label>
-          Last Name:
-          <input type="text" name="lastName" value={form.lastName} onChange={handleChange} />
+
+        </div>
+        <div className="form-group">
+          <label>
+            Last Name:</label>
+          <input className="form-group" type="text" name="lastName" value={form.lastName} onChange={handleChange} />
           {errors.lastName && <span>{errors.lastName}</span>}
-        </label>
-        <label>
-          Email:
-          <input type="email" name="email" value={form.email} onChange={handleChange} />
+        </div>
+        <div className="form-group">
+          <label>
+            Email:</label>
+          <input className="form-group" type="email" name="email" value={form.email} onChange={handleChange} />
           {errors.email && <span>{errors.email}</span>}
-        </label>
-        <label>
-          Password:
-          <input type="password" name="password" value={form.password} onChange={handleChange} />
+        </div>
+        <div className="form-group" style={{ marginBottom: '-6%' }}>
+          <label>
+            Password:</label>
+          <input className="form-group" type={showPassword ? 'text' : 'password'}
+            name="password" value={form.password} onChange={handleChange} />
+          <span
+            onClick={togglePasswordVisibility}
+            className="password-toggle-icon"
+          >
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </span>
           {errors.password && <span>{errors.password}</span>}
-        </label>
-        <label>
-          Confirm Password:
-          <input type="password" name="confirmPassword" value={form.confirmPassword} onChange={handleChange} />
+        </div>
+        <div className="form-group" style={{ marginBottom: '-6%' }}>
+          <label>
+            Confirm Password:</label>
+          <input className="form-group" type={showConfirmPassword ? 'text' : 'password'} name="confirmPassword" value={form.confirmPassword} onChange={handleChange} />
+          <span
+            onClick={toggleConfirmPasswordVisibility}
+            className="password-toggle-icon"
+          >
+            {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+          </span>
           {errors.confirmPassword && <span>{errors.confirmPassword}</span>}
-        </label>
-        <label>
-          Date of Birth:
-          <input type="date" name="dob" value={form.dob} onChange={handleChange} />
+
+        </div>
+        <div className="form-group">
+          <label>
+            Date of Birth:</label>
+          <input className="form-group" type="date" name="dob" value={form.dob} onChange={handleChange} />
           {errors.dob && <span>{errors.dob}</span>}
-        </label>
-        <label>
-          Gender:
-          <select name="gender" value={form.gender} onChange={handleChange}>
-            <option value="">Select</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
-          </select>
-          {errors.gender && <span>{errors.gender}</span>}
-        </label>
-        <label>
-          Role:
-          <select name="role" value={form.role} onChange={handleChange}>
-            <option value="">Select</option>
-            {roles.map(role => <option key={role} value={role}>{role}</option>)}
-          </select>
-          {errors.role && <span>{errors.role}</span>}
-        </label>
-        <label>
-          Address:
-          <textarea name="address" value={form.address} onChange={handleChange}></textarea>
+        </div>
+        <label style={{ marginBottom: "-2%" }}>
+          Gender:</label>
+        <select className="custom-select" name="gender" value={form.gender} onChange={handleChange}>
+          <option value="">Select</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select>
+        {errors.gender && <span>{errors.gender}</span>}
+        <label style={{ marginBottom: "-2%" }}>
+          Role:</label>
+        <select name="role" value={form.role} onChange={handleChange} className="custom-select">
+          <option value="">Select</option>
+          {roles.map(role => <option key={role} value={role}>{role}</option>)}
+        </select>
+        {errors.role && <span>{errors.role}</span>}
+        <div className="form-group">
+          <label>
+            Address:</label>
+          <textarea className="form-group" name="address" value={form.address} onChange={handleChange}></textarea>
           {errors.address && <span>{errors.address}</span>}
-        </label>
+
+        </div>
         {error && <p style={{ color: 'red' }}>{error}</p>}
         <button type="submit">Register</button>
-        {/* {console.log(records,'records')} */}
       </form>
     </div>
   );
